@@ -1,9 +1,9 @@
-* Advent of Code 2017 - Late practice
+* Advent of Code 2017
 
 ** Day 1
-   Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
-   Got stuck trying to destruct on equality of two characters.
-   By luck found out about ~Data.Char.≈?~ which is the decidable instance of character equality. So I have partly solved the first part of the problem. I did not compare the last and first characters of the input in the program, So I have checked it manually and gave me the correct answer.
+Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
+
+Got stuck trying to destruct on equality of two characters.  By luck found out about ~Data.Char.≈?~ which is the decidable instance of character equality. So I have partly solved the first part of the problem. I did not compare the last and first characters of the input in the program, So I have checked it manually (and added 8) which gave me the correct answer.
    #+begin_src sh :exports results :results output verbatim
      cd src/
      ./day1
@@ -11,3 +11,6 @@
 
    #+RESULTS:
    : 1039
+   : 952
+
+Completed the second part too, using ~splitAt~ function and rotating the list in half. I am only tripping up at IO and using Coinduction with INFINITY, SHARP and FLAT constructors. Need more familiarity with all of these.
