@@ -14,3 +14,15 @@ Got stuck trying to destruct on equality of two characters.  By luck found out a
    : 952
 
 Completed the second part too, using ~splitAt~ function and rotating the list in half. I am only tripping up at IO and using Coinduction with INFINITY, SHARP and FLAT constructors. Need more familiarity with all of these.
+
+** Day 2
+I need to get more familiar using generic abstractions. I keep writing small utilities which probably can be built simply using stdlib.
+
+#+begin_src sh :exports results :results output verbatim
+  cd src/
+  ./day2
+#+end_src
+
+#+RESULTS:
+: 47623
+: 312

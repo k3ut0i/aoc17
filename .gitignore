@@ -3,3 +3,4 @@
 src/MAlonzo
 src/day1
 *.agdai
+/src/day2
