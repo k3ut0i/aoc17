@@ -1,6 +1,6 @@
 * Advent of Code 2017
 ** Perl Version
-*** TODO Day 1
+*** DONE Day 1
 #+begin_src perl :exports both
   BEGIN { unshift @INC, './src'; }
   use Day1;
@@ -14,8 +14,27 @@
 | 1047 |
 |  982 |
 
-I am some how missing the starting value again.
+The starting value bug was due to newline at the end of the input string.
+*** Day 2
+Simple ~mapreduce~ for an sequence of arrays.
+#+begin_src perl :exports both
+  BEGIN {unshift @INC, './src'}
+  use Day2;
+  [ Day2::crunch_spreadsheet('inputs/day2',
+			     \&Day2::checksum,   # map for each line
+			     sub {$_[0]+$_[1]}), # reduce with plus
+    Day2::crunch_spreadsheet('inputs/day2',
+			     \&Day2::checksum_div,
+			     sub {$_[0] + $_[1]}),
+  ]
 
+#+end_src
+
+#+RESULTS:
+| 47623 |
+|   312 |
+If I assume that we need both the answers, the above method of iterating in the file might be inefficient.
+In the context of correct method being part2, it might be a good solution.
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
