@@ -1,11 +1,11 @@
 * Advent of Code 2017
 ** Perl Version
 *** DONE Day 1
-#+begin_src perl :exports both
-  BEGIN { unshift @INC, './src'; }
+#+begin_src perl :exports both :var infile='inputs/day1'
+  use lib './src';
   use Day1;
-  open my $fh, '<', 'inputs/day1'
-    or die "Could not open file $!\n";
+  open my $fh, '<', $infile
+    or die "Could not open file $infile: $!\n";
   chomp(my $str = <$fh>);
   [Day1::captcha2($str), Day1::captcha_half_way($str)];
 #+end_src
@@ -14,16 +14,17 @@
 | 1047 |
 |  982 |
 
+
 The starting value bug was due to newline at the end of the input string.
-*** Day 2
+*** DONE Day 2
 Simple ~mapreduce~ for an sequence of arrays.
-#+begin_src perl :exports both
-  BEGIN {unshift @INC, './src'}
+#+begin_src perl :exports both :var infile='inputs/day2'
+  use lib './src';
   use Day2;
-  [ Day2::crunch_spreadsheet('inputs/day2',
+  [ Day2::crunch_spreadsheet($infile,
 			     \&Day2::checksum,   # map for each line
 			     sub {$_[0]+$_[1]}), # reduce with plus
-    Day2::crunch_spreadsheet('inputs/day2',
+    Day2::crunch_spreadsheet($infile,
 			     \&Day2::checksum_div,
 			     sub {$_[0] + $_[1]}),
   ]
@@ -33,8 +34,28 @@ Simple ~mapreduce~ for an sequence of arrays.
 #+RESULTS:
 | 47623 |
 |   312 |
+
 If I assume that we need both the answers, the above method of iterating in the file might be inefficient.
 In the context of correct method being part2, it might be a good solution.
+*** TODO Day 3
+I have previously spent too long trying to arrive at a general
+boundary condition for this problem. Now that I have concentrated
+on it and got it right, my confustion b/w ~^~ and ~**~ as perl 
+power operator lead me to get a better grip on the problem to
+arrive at the conclusion that ~^~ is not the operator I was
+looking for.
+#+begin_src perl :exports both :var num=277678
+  use lib './src';
+  use Day3;
+  # a X-Y impl
+  # Day3::manhattan_dis(Day3::n_to_xy($num))
+  [Day3::getdis($num), Day3::stress_test(sub {$_[0] <= $num})]
+#+end_src
+
+#+RESULTS:
+|    475 |
+| 279138 |
+
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.

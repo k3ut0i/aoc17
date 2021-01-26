@@ -4,7 +4,7 @@ use warnings;
 
 use Test::More;
 
-BEGIN { unshift @INC, '../src' }
+use lib '../src';
 
 use Day2;
 

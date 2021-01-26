@@ -5,10 +5,7 @@ use warnings;
 use Test::More;
 
 
-BEGIN { # suppress fly-make
-  unshift @INC, "../src";
-}
-
+use lib '../src';
 use Day1;
 
 is(Day1::captcha("1122"), 3, "case 1122");
