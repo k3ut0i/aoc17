@@ -37,7 +37,8 @@ Simple ~mapreduce~ for an sequence of arrays.
 
 If I assume that we need both the answers, the above method of iterating in the file might be inefficient.
 In the context of correct method being part2, it might be a good solution.
-*** TODO Day 3
+*** DONE Day 3
+    CLOSED: [2021-01-27 Wed 10:12]
 I have previously spent too long trying to arrive at a general
 boundary condition for this problem. Now that I have concentrated
 on it and got it right, my confustion b/w ~^~ and ~**~ as perl 
@@ -56,6 +57,27 @@ looking for.
 |    475 |
 | 279138 |
 
+*** Day 4
+A simple filter.
+#+begin_src perl :exports both :var infile='inputs/day4'
+  use lib './src';
+  use Day4;
+
+  open my $fh, '<', $infile  or die "Couldn't open $infile: $!";
+  my $nvalid1 = 0; my $nvalid2 = 0;
+  while (<$fh>) {
+    chomp; my @a = split;
+    $nvalid1++ if (Day4::isvalid(\@a, sub {$_[0] eq $_[1]})) ;
+    $nvalid2++ if Day4::isvalid(\@a, sub {$_[0] eq $_[1] or
+					    Day4::is_anagram($_[0], $_[1])});
+  }
+  [$nvalid1, $nvalid2];
+#+end_src
+
+#+RESULTS:
+| 325 |
+| 119 |
+Wasted too much time on a bug in ~is_anagram~. Should have iterated over the union of chars in two strings.
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
