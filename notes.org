@@ -57,7 +57,8 @@ looking for.
 |    475 |
 | 279138 |
 
-*** Day 4
+*** DONE Day 4
+    CLOSED: [2021-01-27 Wed 22:32]
 A simple filter.
 #+begin_src perl :exports both :var infile='inputs/day4'
   use lib './src';
@@ -68,8 +69,7 @@ A simple filter.
   while (<$fh>) {
     chomp; my @a = split;
     $nvalid1++ if (Day4::isvalid(\@a, sub {$_[0] eq $_[1]})) ;
-    $nvalid2++ if Day4::isvalid(\@a, sub {$_[0] eq $_[1] or
-					    Day4::is_anagram($_[0], $_[1])});
+    $nvalid2++ if Day4::isvalid(\@a, \&Day4::is_anagram);
   }
   [$nvalid1, $nvalid2];
 #+end_src
@@ -78,6 +78,34 @@ A simple filter.
 | 325 |
 | 119 |
 Wasted too much time on a bug in ~is_anagram~. Should have iterated over the union of chars in two strings.
+Also ~is_anagram~ is a superset of ~eq~. Why was I dumbly checking for equality or anagram?
+*** TODO Day 5
+Simple step simulation.
+#+begin_src perl :exports both :var infile='inputs/day5'
+  use lib './src';
+  use Day5;
+  use Clone 'clone';
+
+  open my $fh, '<', $infile or die "File Error: $infile $!";
+  my @jumps; my $jumps2 = clone(\@jumps);
+  while (<$fh>) {  chomp; push @jumps, $_; }
+  my $i = 0; my $nsteps1 = 0; my $nsteps2 = 0;
+  while ($i < scalar @jumps) {
+    $i = Day5::step_inst(\@jumps, $i, sub {$_[0]+1}); $nsteps1++;
+  }
+  $i = 0;
+  while ($i < scalar @jumps) {
+    $i = Day5::step_inst($jumps2, $i, sub {$_[0] >= 3 ? ($_[0]-1) : ($_[0]+1)});
+    $nsteps2++;
+  }
+  [$nsteps1,$nsteps2];
+#+end_src
+
+#+RESULTS:
+| 360603 |
+|   2112 |
+TODO: Some bug with the second part. Works for the given example. ????
+
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.

@@ -39,15 +39,11 @@ my @invalid = ("abcde xyz ecdab",
 	       "oiii ioii iioi iiio");
 
 for (@valid) {
-  ok(Day4::isvalid([split], sub { $_[0] eq $_[1] or
-				    Day4::is_anagram($_[0], $_[1])}),
-     "valid pass: $_");
+  ok(Day4::isvalid([split], \&Day4::is_anagram), "valid pass: $_");
 }
 
 for (@invalid) {
-  ok(!Day4::isvalid([split], sub { $_[0] eq $_[1] or
-				     Day4::is_anagram($_[0], $_[1])}),
-     "invalid pass: $_");
+  ok(!Day4::isvalid([split], \&Day4::is_anagram), "invalid pass: $_");
 }
 
 done_testing();
