@@ -79,7 +79,8 @@ A simple filter.
 | 119 |
 Wasted too much time on a bug in ~is_anagram~. Should have iterated over the union of chars in two strings.
 Also ~is_anagram~ is a superset of ~eq~. Why was I dumbly checking for equality or anagram?
-*** TODO Day 5
+*** DONE Day 5
+    CLOSED: [2021-01-28 Fri 22:02]
 Simple step simulation.
 #+begin_src perl :exports both :var infile='inputs/day5'
   use lib './src';
@@ -87,8 +88,9 @@ Simple step simulation.
   use Clone 'clone';
 
   open my $fh, '<', $infile or die "File Error: $infile $!";
-  my @jumps; my $jumps2 = clone(\@jumps);
+  my @jumps;
   while (<$fh>) {  chomp; push @jumps, $_; }
+  my $jumps2 = clone(\@jumps);
   my $i = 0; my $nsteps1 = 0; my $nsteps2 = 0;
   while ($i < scalar @jumps) {
     $i = Day5::step_inst(\@jumps, $i, sub {$_[0]+1}); $nsteps1++;
@@ -102,9 +104,12 @@ Simple step simulation.
 #+end_src
 
 #+RESULTS:
-| 360603 |
-|   2112 |
-TODO: Some bug with the second part. Works for the given example. ????
+|   360603 |
+| 25347697 |
+
+Bug Fixed: I stupidly cloned a zero array. I would have caught it earlier if I just used ~$i < scalar @$jumps2~ in the second while loop.
+*** TODO Day 6
+
 
 ** Agda Version
 *** Day 1
