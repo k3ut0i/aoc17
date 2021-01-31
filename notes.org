@@ -109,7 +109,32 @@ Simple step simulation.
 
 Bug Fixed: I stupidly cloned a zero array. I would have caught it earlier if I just used ~$i < scalar @$jumps2~ in the second while loop.
 *** TODO Day 6
+Iterative simulation. I used a hash for fast state lookup. State is covert to string to work with a hash.
+#+begin_src perl :exports both :var infile='inputs/day6'
+  use lib 'lib';
+  use Day6;
+  sub run {
+    open my $fh, '<', $_[0] or die "File $infile: $!";
+    chomp(my $inline = <$fh>);
+    my @state = split(/\s+/, $inline);
+    my $state_str = join(':', @state);
+    my %seen; my $step_num = 0;
 
+    until (defined $seen{$state_str}) {
+      $seen{$state_str} = $step_num;
+      Day6::step_redist_x(\@state);
+      $state_str = join(':', @state);
+      $step_num++;
+    }
+    return [$step_num, (keys %seen) - $seen{$state_str}]
+  }
+
+  run($infile);
+#+end_src
+
+#+RESULTS:
+| 12841 |
+|  8038 |
 
 ** Agda Version
 *** Day 1
