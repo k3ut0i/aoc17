@@ -2,7 +2,7 @@
 ** Perl Version
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
-  use lib './src';
+  use lib 'lib';
   use Day1;
   open my $fh, '<', $infile
     or die "Could not open file $infile: $!\n";
@@ -19,7 +19,7 @@ The starting value bug was due to newline at the end of the input string.
 *** DONE Day 2
 Simple ~mapreduce~ for an sequence of arrays.
 #+begin_src perl :exports both :var infile='inputs/day2'
-  use lib './src';
+  use lib 'lib';
   use Day2;
   [ Day2::crunch_spreadsheet($infile,
 			     \&Day2::checksum,   # map for each line
@@ -46,7 +46,7 @@ power operator lead me to get a better grip on the problem to
 arrive at the conclusion that ~^~ is not the operator I was
 looking for.
 #+begin_src perl :exports both :var num=277678
-  use lib './src';
+  use lib 'lib';
   use Day3;
   # a X-Y impl
   # Day3::manhattan_dis(Day3::n_to_xy($num))
@@ -61,7 +61,7 @@ looking for.
     CLOSED: [2021-01-27 Wed 22:32]
 A simple filter.
 #+begin_src perl :exports both :var infile='inputs/day4'
-  use lib './src';
+  use lib 'lib';
   use Day4;
 
   open my $fh, '<', $infile  or die "Couldn't open $infile: $!";
@@ -83,7 +83,7 @@ Also ~is_anagram~ is a superset of ~eq~. Why was I dumbly checking for equality 
     CLOSED: [2021-01-28 Fri 22:02]
 Simple step simulation.
 #+begin_src perl :exports both :var infile='inputs/day5'
-  use lib './src';
+  use lib 'lib';
   use Day5;
   use Clone 'clone';
 
@@ -108,8 +108,9 @@ Simple step simulation.
 | 25347697 |
 
 Bug Fixed: I stupidly cloned a zero array. I would have caught it earlier if I just used ~$i < scalar @$jumps2~ in the second while loop.
-*** TODO Day 6
-Iterative simulation. I used a hash for fast state lookup. State is covert to string to work with a hash.
+*** DONE Day 6
+    CLOSED: [2021-01-31 Sun 17:29]
+Iterative simulation. I used a hash for fast state lookup. State is converted to a string to work with a hash.
 #+begin_src perl :exports both :var infile='inputs/day6'
   use lib 'lib';
   use Day6;
@@ -126,7 +127,7 @@ Iterative simulation. I used a hash for fast state lookup. State is covert to st
       $state_str = join(':', @state);
       $step_num++;
     }
-    return [$step_num, (keys %seen) - $seen{$state_str}]
+    return [$step_num, $step_num - $seen{$state_str}]
   }
 
   run($infile);
@@ -135,7 +136,32 @@ Iterative simulation. I used a hash for fast state lookup. State is covert to st
 #+RESULTS:
 | 12841 |
 |  8038 |
+*** TODO Day 7
+I always struggle to write tree recursive code iteratively.
+#+begin_src perl :exports both :var infile='inputs/day7'
+  use lib 'lib';
+  use Day7;
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  my @lines;
+  for (<$fh>) {
+    chomp; push @lines, $_;
+  }
 
+  my %network = %{Day7::parse_network(\@lines)};
+  my $max_node; my $max_rank=-1;
+  for my $node (keys %network) {
+    my $rank = $network{$node}->[1];
+    if ($rank > $max_rank) {
+      $max_rank = $rank; $max_node = $node;
+    }
+  }
+  [$max_node, $max_rank];
+#+end_src
+
+#+RESULTS:
+| svugo |
+|     5 |
+TODO: My current implementation is very buggy. The result of the above script keeps changing. Sometimes the node is different and other times the rank.
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
