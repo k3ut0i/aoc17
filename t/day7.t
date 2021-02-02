@@ -51,21 +51,14 @@ is_deeply(Day7::parse_disc("fwft (72) -> ktlj, cntj, xhth"),
 	  ["fwft", 72, ["ktlj", "cntj", "xhth"]], "parse test fwft");
 
 my @lines = split(/\n/, $ex);
-TODO: {
-  local $TODO = 'parse_network buggy';
-  is_deeply(Day7::parse_network(\@lines), $ex_parsed);
-}
-#print Dumper(Day7::parse_network(\@lines));
-my %network = %{Day7::parse_network(\@lines)};
-my $max_node;my $max_rank=-1;
-for my $node (keys %network) {
-  my $rank = $network{$node}->[1];
-  if ($rank > $max_rank) {
-    $max_rank = $rank;
-    $max_node = $node;
-  }
-}
-is($max_node, 'tknk', 'root node name');
-is($max_rank, 2, 'root node rank');
+is(Day7::find_root(\@lines), 'tknk', 'root node using find_root');
+
+my $network_root = Day7::create_network(\@lines);
+print Dumper(%{$network_root->[0]}{$network_root->[1]->[0]});
+my @roots = @{$network_root->[1]};
+is(scalar @roots, 1, 'number of root nodes');
+is($roots[0], 'tknk', 'root node using create_network');
+# graphviz visual
+# Day7::write_network_graphviz($network_roots->[0], '/tmp/day7graph');
 
 done_testing();

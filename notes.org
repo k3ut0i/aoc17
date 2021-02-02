@@ -138,7 +138,8 @@ Iterative simulation. I used a hash for fast state lookup. State is converted to
 |  8038 |
 *** TODO Day 7
 I always struggle to write tree recursive code iteratively.
-#+begin_src perl :exports both :var infile='inputs/day7'
+For the second part, If the network is constructed completely, traverse from the root node by choosing the node with different weight than the others. We will reach a node that has all children of the same weight. This node weight must be adjusted so that the cumulative is equal to it's siblings.  
+#+begin_src perl :exports both :var infile='inputs/day7' :results output
   use lib 'lib';
   use Day7;
   open my $fh, '<', $infile or die "File error $infile: $!";
@@ -146,22 +147,22 @@ I always struggle to write tree recursive code iteratively.
   for (<$fh>) {
     chomp; push @lines, $_;
   }
-
-  my %network = %{Day7::parse_network(\@lines)};
-  my $max_node; my $max_rank=-1;
-  for my $node (keys %network) {
-    my $rank = $network{$node}->[1];
-    if ($rank > $max_rank) {
-      $max_rank = $rank; $max_node = $node;
-    }
-  }
-  [$max_node, $max_rank];
+  # simple way to find a root
+  # my $root = Day7::find_root(\@lines);
+  my $network_root = Day7::create_network(\@lines);
+  my $dotfile = 'outputs/day7.dot'; my $img = 'outputs/day7.jpg';
+  Day7::write_network_graphviz($network_root->[0], $dotfile);
+  print "Root node is $network_root->[1]->[0]\n"
+    if @{$network_root->[1]} == 1;
+  `twopi -Tjpg -o $img $dotfile`
 #+end_src
 
 #+RESULTS:
-| svugo |
-|     5 |
-TODO: My current implementation is very buggy. The result of the above script keeps changing. Sometimes the node is different and other times the rank.
+: Root node is svugo
+A Radial Visualization of this network
+[[file:outputs/day7.jpg]]
+
+For part one, I just calculated a node with no parents.
 ** Agda Version
 *** Day 1
  Even the basic IO is so convoluted that to run a hello world program it compiles 130 modules. There are a lot of utilities not defined here. I am trying to define a read-number function from a string. Haven't used this in the problem.
