@@ -136,7 +136,8 @@ Iterative simulation. I used a hash for fast state lookup. State is converted to
 #+RESULTS:
 | 12841 |
 |  8038 |
-*** TODO Day 7
+*** DONE Day 7
+    CLOSED: [2021-02-03 Wed 11:36]
 I always struggle to write tree recursive code iteratively.
 - For part one, I just calculated a node with no parents.
 - For the second part, if the network is constructed completely, traverse from the root node by choosing the node with different weight than the others. We will reach a node that has all children of the same weight. This node weight must be adjusted so that the cumulative is equal to it's siblings.  
@@ -168,6 +169,28 @@ I always struggle to write tree recursive code iteratively.
 : Error node is sphbbz with new weight 1152
 A Radial Visualization of this network: error node in red.
 [[file:outputs/day7.jpg]]
+*** TODO Day 8
+Simple simulation of a sequence of conditional evaluations.
+#+begin_src perl :exports both :var infile='inputs/day8'
+  use lib 'lib';
+  use Day8;
+  use List::Util qw(max);
+
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  my %context = (); my $max_ever = 0;
+  while (<$fh>) {
+    chomp; next unless $_;
+    my @inst = Day8::parse_inst($_);
+    my $val = Day8::eval_inst(\@inst, \%context);
+    $max_ever = $val if defined $val and $val > $max_ever;
+  }
+
+  [(max values %context), $max_ever];
+#+end_src
+
+#+RESULTS:
+| 6828 |
+| 7234 |
 
 ** Agda Version
 *** Day 1
