@@ -169,7 +169,8 @@ I always struggle to write tree recursive code iteratively.
 : Error node is sphbbz with new weight 1152
 A Radial Visualization of this network: error node in red.
 [[file:outputs/day7.jpg]]
-*** TODO Day 8
+*** DONE Day 8
+    CLOSED: [2021-02-06 Sat 12:30]
 Simple simulation of a sequence of conditional evaluations.
 #+begin_src perl :exports both :var infile='inputs/day8'
   use lib 'lib';
@@ -191,6 +192,21 @@ Simple simulation of a sequence of conditional evaluations.
 #+RESULTS:
 | 6828 |
 | 7234 |
+*** Day9
+A Simple Parsing Problem
+#+begin_src perl :exports both :var infile='inputs/day9'
+  use lib 'lib';
+  use Day9;
+
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  chomp(my $line = <$fh>);
+  my ($score, $garbage) = Day9::score_stream($line);
+  [$score, $garbage]
+#+end_src
+
+#+RESULTS:
+| 14421 |
+|  6817 |
 
 ** Agda Version
 *** Day 1
