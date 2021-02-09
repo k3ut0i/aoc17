@@ -233,7 +233,43 @@ A simulation of operation on circular list which is implemented as an array.
 | d067d3f14d07e09c2e7308c3926605c4 |
 
 *** INIT Day 11
+    - Note taken on [2021-02-09 Tue 11:30] \\
+      I tried two different ways to solve part 2 and still got the same wrong answer.
 I solved something similar to this previously using *APL* in /AOC20/. I used complex numbers to actually trace the whole path and thus arrive at final point. I will try a different approach here. Vector addition is commutative and associative. Hence, however this sequence of steps is ordered the final point is the same. So we can do a lot of reduction, by canceling out opposites and loops. Final irreducible quantity is the answer required. 
+#+begin_src perl :exports both :results output :var infile='inputs/day11'
+  use lib 'lib';
+  use Day11;
+  use Data::Dumper;
+
+  open my $fh, '<', $infile or die "File Error $infile: $!";
+  chomp(my $line = <$fh>);
+  my ($reduction, $max_reduction, $max_dis, $max_step, $dis, $step) = Day11::distance($line);
+  print Dumper($reduction); print Dumper($max_reduction);
+  print "maximum distance is $max_dis at $max_step\n";
+  print "final distance is $dis at $step\n";
+#+end_src
+
+#+RESULTS:
+#+begin_example
+$VAR1 = {
+          'ne' => -447,
+          'nw' => -31,
+          'n' => -387
+        };
+$VAR1 = {
+          's' => 1627,
+          'sw' => 1398,
+          'ne' => 663,
+          'n' => 796,
+          'se' => 1298,
+          'nw' => 1003
+        };
+maximum distance is -381.051177665151-1346i at 6784
+final distance is -360.266567974325-626i at 8223
+#+end_example
+We can see by the above reduction, that the direction will be b/w southwest and south . Since SW and SE reduce to one S, we can just ignore that 31 and ~387+447~ will give the answer to the first part.
+For the second part we can see that the furthest point is also southwest. If we take 440 steps SW and 1126 steps S, we will be at the maximum distance.
+I even tried reduction method from the first part, still get the same answer 1566 steps. Why isn't this the correct answer?
 *** TODO Day 12
 *** TODO Day 13
 *** TODO Day 14
