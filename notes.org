@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version
+** Perl Version [9/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -16,7 +16,7 @@
 
 
 The starting value bug was due to newline at the end of the input string.
-*** DONE Day 2
+*** DONE Day 2                                                    :mapreduce:
 Simple ~mapreduce~ for an sequence of arrays.
 #+begin_src perl :exports both :var infile='inputs/day2'
   use lib 'lib';
@@ -79,7 +79,7 @@ A simple filter.
 | 119 |
 Wasted too much time on a bug in ~is_anagram~. Should have iterated over the union of chars in two strings.
 Also ~is_anagram~ is a superset of ~eq~. Why was I dumbly checking for equality or anagram?
-*** DONE Day 5
+*** DONE Day 5                                         :processor_simulation:
     CLOSED: [2021-01-28 Fri 22:02]
 Simple step simulation.
 #+begin_src perl :exports both :var infile='inputs/day5'
@@ -136,7 +136,7 @@ Iterative simulation. I used a hash for fast state lookup. State is converted to
 #+RESULTS:
 | 12841 |
 |  8038 |
-*** DONE Day 7
+*** DONE Day 7                                                :graph_network:
     CLOSED: [2021-02-03 Wed 11:36]
 I always struggle to write tree recursive code iteratively.
 - For part one, I just calculated a node with no parents.
@@ -169,7 +169,7 @@ I always struggle to write tree recursive code iteratively.
 : Error node is sphbbz with new weight 1152
 A Radial Visualization of this network: error node in red.
 [[file:outputs/day7.jpg]]
-*** DONE Day 8
+*** DONE Day 8                                         :processor_simulation:
     CLOSED: [2021-02-06 Sat 12:30]
 Simple simulation of a sequence of conditional evaluations.
 #+begin_src perl :exports both :var infile='inputs/day8'
@@ -192,7 +192,8 @@ Simple simulation of a sequence of conditional evaluations.
 #+RESULTS:
 | 6828 |
 | 7234 |
-*** Day9
+*** DONE Day 9                                                      :parsing:
+    CLOSED: [2021-02-06 Sat 13:25]
 A Simple Parsing Problem
 #+begin_src perl :exports both :var infile='inputs/day9'
   use lib 'lib';
@@ -207,6 +208,47 @@ A Simple Parsing Problem
 #+RESULTS:
 | 14421 |
 |  6817 |
+*** DONE Day 10
+    CLOSED: [2021-02-09 Tue 09:47]
+A simulation of operation on circular list which is implemented as an array.
+#+begin_src perl :exports both :var infile='inputs/day10'
+  use lib 'lib';
+  use Day10;
+
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  chomp(my $line = <$fh>);
+  my @lengths = split /,/, $line;
+
+  my $a = [0 .. 255]; my $pos = 0; my $skip = 0;
+  for my $len (@lengths) {
+    ($a, $pos, $skip) = Day10::step_sim($a, $pos, $skip, $len);
+  }
+  my $part1 = $a->[0] * $a->[1];
+  my $part2 = Day10::densehash($line);
+  [$part1, $part2];
+#+end_src
+
+#+RESULTS:
+|                              826 |
+| d067d3f14d07e09c2e7308c3926605c4 |
+
+*** INIT Day 11
+I solved something similar to this previously using *APL* in /AOC20/. I used complex numbers to actually trace the whole path and thus arrive at final point. I will try a different approach here. Vector addition is commutative and associative. Hence, however this sequence of steps is ordered the final point is the same. So we can do a lot of reduction, by canceling out opposites and loops. Final irreducible quantity is the answer required. 
+*** TODO Day 12
+*** TODO Day 13
+*** TODO Day 14
+*** TODO Day 15
+*** TODO Day 16
+*** TODO Day 17
+*** TODO Day 18
+*** TODO Day 19
+*** TODO Day 20
+*** TODO Day 21
+*** TODO Day 22
+*** TODO Day 23
+*** TODO Day 24
+*** TODO Day 25
+
 
 ** Agda Version
 *** Day 1
