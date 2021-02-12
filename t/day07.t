@@ -31,7 +31,7 @@ my @lines = split(/\n/, $ex);
 is(Day7::find_root(\@lines), 'tknk', 'root node using find_root');
 
 my ($network, $roots) = Day7::create_network(\@lines);
-print Dumper($network);
+# print Dumper($network);
 is(scalar @$roots, 1, 'number of root nodes');
 is($roots->[0], 'tknk', 'root node using create_network');
 # for graphviz visuals
