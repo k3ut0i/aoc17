@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version [10/25]
+** Perl Version [11/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -270,7 +270,8 @@ final distance is -360.266567974325-626i at 8223
 We can see by the above reduction, that the direction will be b/w southwest and south . Since SW and SE reduce to one S, we can just ignore that 31 and ~387+447~ will give the answer to the first part.
 For the second part we can see that the furthest point is also southwest. If we take 440 steps SW and 1126 steps S, we will be at the maximum distance.
 I even tried reduction method from the first part, still get the same answer 1566 steps. Why isn't this the correct answer?
-*** TODO Day 12
+*** DONE Day 12
+    CLOSED: [2021-02-19 Fri 08:50]
 Transitive closure of a network. Finding the full closure network is too expensive. I should just find the closure for one node.
 #+begin_src perl :exports both :var infile='inputs/day12'
   use lib 'lib';
@@ -294,6 +295,31 @@ Transitive closure of a network. Finding the full closure network is too expensi
 | 195 |
 
 *** TODO Day 13
+Simulation
+#+begin_src perl :exports both :var infile='inputs/day13'
+  use lib 'lib';
+  use Day13;
+  use Clone qw(clone);
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  my @lines;
+  for (<$fh>) {
+    chomp; push @lines, $_;
+  }
+  my $init_state = Day13::read_init_state(\@lines);
+  my $state1 = clone($init_state);
+  my $caught = Day13::simulate_part1($state1);
+  my $result1 = 0;
+  for (keys %$caught) {
+    $result1 += $state1->{$_}{depth} * $_;
+  }
+  [$result1, Day13::find_delay($init_state)];
+#+end_src
+
+#+RESULTS:
+
+
+
+
 *** TODO Day 14
 *** TODO Day 15
 *** TODO Day 16
