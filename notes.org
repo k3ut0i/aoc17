@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version [9/25]
+** Perl Version [10/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -232,7 +232,7 @@ A simulation of operation on circular list which is implemented as an array.
 |                              826 |
 | d067d3f14d07e09c2e7308c3926605c4 |
 
-*** INIT Day 11
+*** PAUS Day 11
     - Note taken on [2021-02-09 Tue 11:30] \\
       I tried two different ways to solve part 2 and still got the same wrong answer.
 I solved something similar to this previously using *APL* in /AOC20/. I used complex numbers to actually trace the whole path and thus arrive at final point. I will try a different approach here. Vector addition is commutative and associative. Hence, however this sequence of steps is ordered the final point is the same. So we can do a lot of reduction, by canceling out opposites and loops. Final irreducible quantity is the answer required. 
@@ -271,6 +271,28 @@ We can see by the above reduction, that the direction will be b/w southwest and 
 For the second part we can see that the furthest point is also southwest. If we take 440 steps SW and 1126 steps S, we will be at the maximum distance.
 I even tried reduction method from the first part, still get the same answer 1566 steps. Why isn't this the correct answer?
 *** TODO Day 12
+Transitive closure of a network. Finding the full closure network is too expensive. I should just find the closure for one node.
+#+begin_src perl :exports both :var infile='inputs/day12'
+  use lib 'lib';
+  use Day12;
+  use List::Util qw(uniq);
+  open my $fh, '<', $infile or die "File error $infile: $!";
+  my @lines = ();
+  for (<$fh>) {
+    chomp; push @lines, $_;
+  }
+  my $n = Day12::create_network(\@lines);
+  Day12::transitive_closure($n);
+  my $group_zero = scalar @{$n->{0}};
+  my $tree_data = Day12::trees($n);
+  my $num_trees = uniq (values %$tree_data);
+  [$group_zero, $num_trees]
+#+end_src
+
+#+RESULTS:
+| 283 |
+| 195 |
+
 *** TODO Day 13
 *** TODO Day 14
 *** TODO Day 15
