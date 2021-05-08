@@ -37,5 +37,8 @@ is_deeply(Day13::read_init_state([split /\n/, $test_lines]),
 my $state = clone(\%init_state);
 is_deeply(Day13::simulate_part1($state), {0 => 1, 6 => 1}, "Caught places");
 is_deeply($state, \%final_state, "Full simulation");
+is(Day13::severity(\%init_state), 24, "Direct severity calculation");
 is(Day13::find_delay(\%init_state), 10, 'Delay to escape firewall');
+is(Day13::find_delay_direct(\%init_state), 10,
+   "Delay direct calculation");
 done_testing();

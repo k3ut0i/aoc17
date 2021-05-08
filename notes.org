@@ -294,7 +294,11 @@ Transitive closure of a network. Finding the full closure network is too expensi
 | 283 |
 | 195 |
 
-*** TODO Day 13
+*** INIT Day 13
+    - Note taken on [2021-05-08 Sat 13:56] \\
+      I seem to have a bad habit of doing straight forward simulations, rather than actually thing about the underlying problem. This problem can be formulated by simple arithmetic and iterating over layers, but I did not even give it a thought until the second part gave me trouble.
+    - Note taken on [2021-02-19 Fri 21:58] \\
+      inefficient brute force search for part 2
 Simulation
 #+begin_src perl :exports both :var infile='inputs/day13'
   use lib 'lib';
@@ -306,20 +310,22 @@ Simulation
     chomp; push @lines, $_;
   }
   my $init_state = Day13::read_init_state(\@lines);
+  my $result1_direct = Day13::severity($init_state);
   my $state1 = clone($init_state);
   my $caught = Day13::simulate_part1($state1);
   my $result1 = 0;
   for (keys %$caught) {
     $result1 += $state1->{$_}{depth} * $_;
   }
-  [$result1, Day13::find_delay($init_state)];
+
+  [$result1_direct, Day13::find_delay_direct($init_state)];
 #+end_src
 
 #+RESULTS:
+|    1624 |
+| 3923436 |
 
-
-
-
+There is a lot of extra code that modeled the simulation.
 *** TODO Day 14
 *** TODO Day 15
 *** TODO Day 16
