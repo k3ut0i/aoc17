@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version [11/25]
+** Perl Version [12/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -294,7 +294,8 @@ Transitive closure of a network. Finding the full closure network is too expensi
 | 283 |
 | 195 |
 
-*** INIT Day 13
+*** DONE Day 13
+    CLOSED: [2021-05-16 Sun 13:12]
     - Note taken on [2021-05-08 Sat 13:56] \\
       I seem to have a bad habit of doing straight forward simulations, rather than actually thing about the underlying problem. This problem can be formulated by simple arithmetic and iterating over layers, but I did not even give it a thought until the second part gave me trouble.
     - Note taken on [2021-02-19 Fri 21:58] \\
@@ -327,6 +328,21 @@ Simulation
 
 There is a lot of extra code that modeled the simulation.
 *** TODO Day 14
+Map reduce using day 10 hash functions.
+    #+begin_src perl
+      use strict;
+      use warnings;
+      use lib 'lib';
+      use Day14;
+
+      my $key = "uugsqrei";
+      [Day14::full_sim($key)];
+    #+end_src
+
+    #+RESULTS:
+    | 8194 |
+    | 1141 |
+The second part seems to be a kind of coloring problem. In /Paint/ program there was a coloring tool which marked all the connected regions to the same color. Now how do I mark a whole region?
 *** TODO Day 15
 *** TODO Day 16
 *** TODO Day 17
