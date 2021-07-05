@@ -6,3 +6,4 @@ src/MAlonzo
 tags
 /src/day[0-9]
 outputs/day7.dot
+/lib/.apl.history

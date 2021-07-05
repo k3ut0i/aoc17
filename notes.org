@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version [12/25]
+** Perl Version [14/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -327,7 +327,8 @@ Simulation
 | 3923436 |
 
 There is a lot of extra code that modeled the simulation.
-*** TODO Day 14
+*** DONE Day 14
+    CLOSED: [2021-07-04 Sun 14:57]
 Map reduce using day 10 hash functions.
     #+begin_src perl
       use strict;
@@ -342,8 +343,30 @@ Map reduce using day 10 hash functions.
     #+RESULTS:
     | 8194 |
     | 1141 |
-The second part seems to be a kind of coloring problem. In /Paint/ program there was a coloring tool which marked all the connected regions to the same color. Now how do I mark a whole region?
-*** TODO Day 15
+In the final part, I used transitive closure method to find the clusters.
+*** DONE Day 15
+    CLOSED: [2021-07-05 Mon 08:30]
+    - Note taken on [2021-07-05 Mon 08:29] \\
+      brute forced the second part too.
+    - Note taken on [2021-07-04 Sun 17:03] \\
+      Straight forward iteration without any math for part one.
+    Inputs: ~Astart = 679~ and ~Bstart = 771~.
+    #+begin_src perl :var as = 679 :var bs = 771
+      use lib 'lib';
+      use Day15;
+
+      [judge_ab($as, $bs), judge_adv($as, $bs)];
+    #+end_src
+
+    #+RESULTS:
+    | 626 |
+    | 306 |
+    The tests took around a minute. So I assume there might be a better mathematical solution.
+    #+begin_example
+    perl -Ilib t/day15.t  57.85s user 0.01s system 99% cpu 57.899 total
+    #+end_example
+
+    
 *** TODO Day 16
 *** TODO Day 17
 *** TODO Day 18
