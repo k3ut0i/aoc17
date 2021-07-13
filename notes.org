@@ -344,6 +344,7 @@ Map reduce using day 10 hash functions.
     | 8194 |
     | 1141 |
 In the final part, I used transitive closure method to find the clusters.
+
 *** DONE Day 15
     CLOSED: [2021-07-05 Mon 08:30]
     - Note taken on [2021-07-05 Mon 08:29] \\
@@ -366,9 +367,42 @@ In the final part, I used transitive closure method to find the clusters.
     perl -Ilib t/day15.t  57.85s user 0.01s system 99% cpu 57.899 total
     #+end_example
 
-    
 *** TODO Day 16
+    #+begin_src perl :var infile='inputs/day16'
+      use lib 'lib';
+      use Day16;
+      use autodie;
+
+      open my $fh, '<', $infile;
+      chomp(my $all_cmd = <$fh>);
+      my @cmd_strs = split /,/, $all_cmd;
+      my $a = {index => 0,
+	       length => 16,
+	       array => [qw(a b c d e f g h i j k l m n o p)]};
+      for (@cmd_strs) {
+	exec_cmd($a, $_);
+      }
+      dance_str($a);
+    #+end_src
+
+    #+RESULTS:
+    : djopinfkecbmlhag
+Wrong answer, do not know why.
+    
 *** TODO Day 17
+    #+begin_src perl
+      use strict;
+      use warnings;
+      use lib 'lib';
+      use Day17;
+      [value_after(376, 2017), find_idx_pos(376, 50_000_000, 1)];
+    #+end_src
+
+    #+RESULTS:
+    |      777 |
+    | 39289581 |
+Second part is a bit tricky. We can see that a position only gets updated when that particular position is reached. So we can keep iterating the position and seen in which iteration the required position was last updated.    
+    
 *** TODO Day 18
 *** TODO Day 19
 *** TODO Day 20
