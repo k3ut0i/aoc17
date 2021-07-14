@@ -1,5 +1,5 @@
 * Advent of Code 2017
-** Perl Version [14/25]
+** Perl Version [15/25]
 *** DONE Day 1
 #+begin_src perl :exports both :var infile='inputs/day1'
   use lib 'lib';
@@ -367,7 +367,7 @@ In the final part, I used transitive closure method to find the clusters.
     perl -Ilib t/day15.t  57.85s user 0.01s system 99% cpu 57.899 total
     #+end_example
 
-*** TODO Day 16
+*** INIT Day 16
     #+begin_src perl :var infile='inputs/day16'
       use lib 'lib';
       use Day16;
@@ -403,8 +403,34 @@ Wrong answer, do not know why.
     | 39289581 |
 Second part is a bit tricky. We can see that a position only gets updated when that particular position is reached. So we can keep iterating the position and seen in which iteration the required position was last updated.    
     
-*** TODO Day 18
-*** TODO Day 19
+*** INIT Day 18
+    #+begin_src perl :var infile='inputs/day18'
+      use strict;
+      use warnings;
+      use lib 'lib';
+      use Day18;
+      use autodie;
+      open my $fh, '<', $infile;
+      my $in;
+      {
+	local $/;
+	$in = <$fh>;
+      }
+      run_prog_fst_rcv(compile_prog($in));
+    #+end_src
+Seems to be an inefficient program. The end is nowhere insight. Need to analyze it and figure out what it is trying to do.
+*** DONE Day 19
+    CLOSED: [2021-07-14 Wed 16:06]
+    #+begin_src perl :var infile='inputs/day19'
+      use lib 'lib';
+      use Day19;
+      traverse_network(read_file("inputs/day19"));
+    #+end_src    
+
+    #+RESULTS:
+    | GEPYAWTMLK |
+    |      17628 |
+
 *** TODO Day 20
 *** TODO Day 21
 *** TODO Day 22
